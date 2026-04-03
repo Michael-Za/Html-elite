@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elite Partners — Build Different</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <!-- Fallback fonts if Clash Display unavailable -->
@@ -48,18 +49,45 @@ body::before {
 
 #bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
-/* NAV */
+/* NAV — Glassmorphism Water Drop */
 nav {
-  position:fixed; top:0; left:0; right:0; z-index:200;
-  padding:20px 48px;
+  position:fixed; top:12px; left:50%; right:auto; z-index:200;
+  transform:translateX(-50%);
+  width:calc(100% - 48px);
+  max-width:1320px;
+  padding:14px 36px;
   display:flex; align-items:center; justify-content:space-between;
   animation: navIn 1s .1s both;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.4),
+    0 2px 8px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    inset 0 -1px 0 rgba(0,0,0,0.15),
+    0 0 0 0.5px rgba(255,255,255,0.05),
+    0 0 80px -20px rgba(200,245,61,0.06);
+  overflow:hidden;
 }
+nav::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:50%;
+  border-radius: 20px 20px 0 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 100%);
+  pointer-events:none;
+  z-index:1;
+}
+/* Water-drop edge highlight */
 nav::after {
-  content:''; position:absolute; bottom:0; left:48px; right:48px;
-  height:1px; background:var(--border2);
+  content:''; position:absolute; bottom:0; left:20px; right:20px;
+  height:1px;
+  background: linear-gradient(90deg, transparent, rgba(200,245,61,0.15), rgba(255,255,255,0.1), rgba(200,245,61,0.15), transparent);
 }
-@keyframes navIn { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes navIn { from{opacity:0;transform:translateX(-50%) translateY(-20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
 
 .logo {
   font-family: 'Bebas Neue', 'Clash Display', sans-serif;
@@ -68,47 +96,58 @@ nav::after {
   color: var(--white);
   text-decoration: none;
   display: flex; align-items: center; gap: 10px;
+  position:relative; z-index:2;
 }
 .logo-dot {
-  width: 8px; height: 8px;
+  width: 10px; height: 10px;
   background: var(--lime);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--lime);
+  box-shadow: 0 0 12px var(--lime), 0 0 4px var(--lime);
   animation: blink 3s infinite;
 }
 @keyframes blink { 0%,90%,100%{opacity:1} 95%{opacity:0.2} }
 
 .nav-pills {
-  display:flex; align-items:center; gap:4px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border2);
+  display:flex; align-items:center; gap:2px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
   border-radius: 100px;
-  padding: 6px 8px;
-  backdrop-filter: blur(20px);
+  padding: 5px 6px;
+  position:relative; z-index:2;
 }
 .nav-pill {
-  font-size: .75rem; font-weight: 500;
+  font-size: .72rem; font-weight: 500;
   letter-spacing: .04em;
   color: var(--muted);
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: 100px;
   text-decoration: none;
   transition: all .3s cubic-bezier(.23,1,.32,1);
 }
-.nav-pill:hover, .nav-pill.active { color: var(--ink); background: var(--lime); }
+.nav-pill:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+.nav-pill.active {
+  color: var(--ink); background: var(--lime);
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(200,245,61,0.3), 0 0 4px rgba(200,245,61,0.2);
+}
 
 .nav-right { display:flex; align-items:center; gap:14px; }
 .nav-btn {
-  font-size: .75rem; font-weight: 700;
+  font-size: .72rem; font-weight: 700;
   letter-spacing: .08em; text-transform: uppercase;
-  padding: 12px 24px;
-  background: var(--lime);
+  padding: 10px 22px;
+  background: linear-gradient(135deg, var(--lime) 0%, #b5e82e 100%);
   color: var(--ink);
   border: none; border-radius: 100px;
   cursor: none; text-decoration: none;
   transition: all .3s cubic-bezier(.23,1,.32,1);
+  box-shadow: 0 2px 12px rgba(200,245,61,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+  position:relative; z-index:2;
 }
-.nav-btn:hover { transform: scale(1.04); box-shadow: 0 0 32px rgba(200,245,61,.3); }
+.nav-btn:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 4px 24px rgba(200,245,61,0.35), 0 0 8px rgba(200,245,61,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+}
 
 /* HERO */
 #hero {
@@ -234,7 +273,8 @@ nav::after {
   color:rgba(200,245,61,0.3);
   white-space:nowrap;
 }
-.ticker-sep { color:rgba(200,245,61,0.15); font-size:1.4rem; }
+.ticker-sep { color:rgba(200,245,61,0.15); }
+.ticker-sep iconify-icon { width:12px; height:12px; vertical-align:middle; opacity:.3; }
 
 /* SERVICES */
 #services {
@@ -302,7 +342,8 @@ nav::after {
   font-size:.8rem; letter-spacing:.2em;
   color:rgba(200,245,61,.3); margin-bottom:32px;
 }
-.card-icon { font-size:2rem; margin-bottom:20px; }
+.card-icon { margin-bottom:20px; display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:14px; background:rgba(255,255,255,.03); }
+.card-icon iconify-icon { width:26px; height:26px; color:var(--lime); }
 .card-h3 {
   font-family:'Plus Jakarta Sans',sans-serif;
   font-size:1.1rem; font-weight:700; margin-bottom:10px;
@@ -390,13 +431,6 @@ nav::after {
   display:flex; align-items:center; gap:12px;
   font-size:.82rem; color:var(--muted);
 }
-.ecomm-feat::before {
-  content:'✓'; width:22px; height:22px; flex-shrink:0;
-  background:rgba(200,245,61,.1); border:1px solid rgba(200,245,61,.25);
-  border-radius:6px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:.65rem; color:var(--lime); font-weight:800;
-}
 
 .ecomm-right {
   padding:48px;
@@ -415,8 +449,9 @@ nav::after {
 .ecomm-card-mini:hover { border-color:rgba(200,245,61,.2); background:rgba(200,245,61,.03); transform:translateX(6px); }
 .ecm-icon {
   width:48px; height:48px; border-radius:14px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  display:flex; align-items:center; justify-content:center;
 }
+.ecm-icon iconify-icon { width:22px; height:22px; color:var(--lime); }
 .ecm-1 { background:rgba(200,245,61,.1); }
 .ecm-2 { background:rgba(139,92,246,.1); }
 .ecm-3 { background:rgba(236,72,153,.1); }
@@ -535,22 +570,99 @@ footer {
 .sr-d4 { transition-delay:.32s; }
 
 /* Responsive touches */
+
+/* Mobile scroll wrapper — hidden on desktop */
+.bento-scroll-wrap { display:contents; }
+.bento-scroll-hint { display:none; }
+
 @media (max-width:900px) {
-  nav { padding:16px 24px; }
-  nav::after { left:24px; right:24px; }
+  nav { width:calc(100% - 32px); top:8px; padding:12px 20px; border-radius:16px; }
+  nav::after { left:16px; right:16px; }
   .nav-pills { display:none; }
+  .nav-btn { padding:10px 18px; font-size:.68rem; }
   #hero { padding:100px 24px 80px; }
   .hero-row { flex-direction:column; gap:32px; align-items:flex-start; }
-  .bento { grid-template-columns:1fr 1fr; }
-  .bc-span3,.bc-span4,.bc-span6,.bc-span8 { grid-column:span 2; }
-  .bc-big { grid-column:span 2; }
+  .bento { grid-template-columns:1fr; }
+  .bc-span3,.bc-span4,.bc-span6,.bc-span8 { grid-column:span 1; }
+  .bc-big { grid-column:span 1; }
+
+  /* Mobile horizontal scroll for service cards */
+  .bento-scroll-wrap {
+    display:block;
+    position:relative;
+    margin-top:20px;
+  }
+  .bento-scroll-hint {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-size:.65rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted2);
+    margin-bottom:16px;
+    animation: fadeHint 3s ease both;
+  }
+  @keyframes fadeHint { 0%,70%{opacity:1} 100%{opacity:0} }
+  .bento-scroll {
+    display:flex;
+    gap:16px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:12px;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(200,245,61,.2) transparent;
+  }
+  .bento-scroll::-webkit-scrollbar { height:4px; }
+  .bento-scroll::-webkit-scrollbar-track { background:transparent; }
+  .bento-scroll::-webkit-scrollbar-thumb { background:rgba(200,245,61,.2); border-radius:10px; }
+  .bento-scroll .bento-card {
+    flex:0 0 75vw;
+    max-width:320px;
+    scroll-snap-align:start;
+    padding:28px 24px;
+  }
+  .bento-scroll .card-num { margin-bottom:20px; }
+  .bento-scroll .card-icon { margin-bottom:16px; width:44px; height:44px; }
+  .bento-scroll .card-icon iconify-icon { width:24px; height:24px; }
+  .bento-scroll .card-h3 { font-size:1.05rem; margin-bottom:8px; }
+  .bento-scroll .card-p { font-size:.8rem; line-height:1.6; }
+  .bento-scroll .card-link { margin-top:20px; }
+  .bc-big { padding:28px 20px; min-height:auto; }
+  .bc-big .big-title { font-size:1.6rem; }
+  .bc-stat-row { gap:24px; }
+  .bc-stat-val { font-size:2rem; }
+  .services-header { flex-direction:column; align-items:flex-start; gap:16px; margin-bottom:40px; }
+  .services-sub { max-width:100%; }
   .ecomm-grid { grid-template-columns:1fr; }
   .ecomm-left { border-right:none; border-bottom:1px solid var(--border2); }
   #proof { flex-direction:column; gap:40px; padding:56px 24px; }
-  .proof-stats { margin-left:0; }
+  .proof-stats { margin-left:0; gap:32px; }
   footer,.services-header,#services,#ecomm,#cta { padding-left:24px; padding-right:24px; }
   .footer-top { flex-direction:column; gap:40px; }
   .footer-cols { gap:40px; flex-wrap:wrap; }
+  .hero-badges { flex-wrap:wrap; gap:12px; }
+}
+@media (max-width:480px) {
+  #hero { padding:90px 16px 60px; }
+  #services { padding:80px 16px; }
+  .bento-scroll { gap:12px; }
+  .bento-scroll .bento-card { flex:0 0 82vw; max-width:none; padding:24px 20px; border-radius:14px; }
+  .bento-scroll .card-p { font-size:.78rem; }
+  .bc-big .big-title { font-size:1.4rem; }
+  .bc-stat-row { gap:20px; flex-wrap:wrap; }
+  .bc-stat-val { font-size:1.8rem; }
+  #ecomm { padding:60px 16px 80px; }
+  .ecomm-left { padding:36px 24px; }
+  .ecomm-right { padding:28px 20px; }
+  .ecomm-left h3 { font-size:1.6rem; }
+  .ecm-title { font-size:.82rem; }
+  .ecm-desc { font-size:.72rem; }
+  #proof { padding:40px 16px; }
+  #cta { padding:100px 16px; }
+  footer { padding:40px 16px 28px; }
 }
 </style>
 </head>
@@ -572,14 +684,14 @@ footer {
     <a href="#cta" class="nav-pill">Contact</a>
   </div>
   <div class="nav-right">
-    <a href="https://www.elitepartnersus.com" target="_blank" class="nav-btn">Book Consult ↗</a>
+    <a href="https://www.elitepartnersus.com" target="_blank" class="nav-btn"><iconify-icon icon="ph:arrow-up-right-bold" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></iconify-icon>Book Consult</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-eyebrow">
-    <span class="eyebrow-chip">SOC 2 Certified</span>
+    <span class="eyebrow-chip"><iconify-icon icon="ph:shield-check-fill" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></iconify-icon>SOC 2 Certified</span>
     Enterprise Technology Partners · USA · Egypt · Dubai
   </div>
   <h1 class="hero-h1">
@@ -592,18 +704,18 @@ footer {
       We architect the tech stack behind <strong>Gen Z's fastest-growing brands</strong> — from VoIP to AI-powered contact centers to stores that convert on scroll.
     </p>
     <div class="hero-actions">
-      <button class="btn-lime" onclick="window.open('https://www.elitepartnersus.com','_blank')">Start Building →</button>
-      <button class="btn-outline">See Our Work</button>
+      <button class="btn-lime" onclick="window.open('https://www.elitepartnersus.com','_blank')"><iconify-icon icon="ph:rocket-launch-fill" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"></iconify-icon>Start Building</button>
+      <button class="btn-outline"><iconify-icon icon="ph:play-fill" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;"></iconify-icon>See Our Work</button>
     </div>
   </div>
   <div class="hero-badges">
-    <div class="badge"><div class="badge-dot"></div>99.9% Uptime SLA</div>
-    <div class="badge"><div class="badge-dot"></div>3.2× Average ROI</div>
-    <div class="badge"><div class="badge-dot"></div>24/7 Support · 15min Response</div>
-    <div class="badge"><div class="badge-dot"></div>150+ Tech Partners</div>
+    <div class="badge"><iconify-icon icon="ph:timer-fill" style="width:14px;height:14px;color:var(--lime);"></iconify-icon>99.9% Uptime SLA</div>
+    <div class="badge"><iconify-icon icon="ph:trend-up-fill" style="width:14px;height:14px;color:var(--lime);"></iconify-icon>3.2× Average ROI</div>
+    <div class="badge"><iconify-icon icon="ph:headset-fill" style="width:14px;height:14px;color:var(--lime);"></iconify-icon>24/7 Support · 15min Response</div>
+    <div class="badge"><iconify-icon icon="ph:users-three-fill" style="width:14px;height:14px;color:var(--lime);"></iconify-icon>150+ Tech Partners</div>
   </div>
   <div class="hero-scroll">
-    <div class="scroll-bar"></div>
+    <iconify-icon icon="ph:mouse-simple" style="width:18px;height:18px;color:var(--muted2);"></iconify-icon>
     Scroll
   </div>
 </section>
@@ -611,25 +723,25 @@ footer {
 <!-- TICKER -->
 <div id="ticker">
   <div class="ticker-track" id="tt">
-    <div class="ticker-item">VoIP Infrastructure <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Contact Center AI <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">E-commerce Stores <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">App Development <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">CRM Systems <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Virtual Assistants <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Tailored AI Models <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Strategic Consulting <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Web Development <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">VoIP Infrastructure <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Contact Center AI <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">E-commerce Stores <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">App Development <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">CRM Systems <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Virtual Assistants <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Tailored AI Models <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Strategic Consulting <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Web Development <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
     <!-- dupe -->
-    <div class="ticker-item">VoIP Infrastructure <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Contact Center AI <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">E-commerce Stores <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">App Development <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">CRM Systems <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Virtual Assistants <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Tailored AI Models <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Strategic Consulting <span class="ticker-sep">✦</span></div>
-    <div class="ticker-item">Web Development <span class="ticker-sep">✦</span></div>
+    <div class="ticker-item">VoIP Infrastructure <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Contact Center AI <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">E-commerce Stores <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">App Development <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">CRM Systems <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Virtual Assistants <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Tailored AI Models <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Strategic Consulting <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
+    <div class="ticker-item">Web Development <span class="ticker-sep"><iconify-icon icon="ph:sparkle-fill"></iconify-icon></span></div>
   </div>
 </div>
 
@@ -647,7 +759,7 @@ footer {
     <!-- Big card -->
     <div class="bento-card bc-big sr">
       <div>
-        <div class="section-eyebrow" style="margin-bottom:16px">Flagship</div>
+        <div class="section-eyebrow" style="margin-bottom:16px"><iconify-icon icon="ph:crown-fill" style="width:14px;height:14px;color:var(--lime);vertical-align:middle;margin-right:4px;"></iconify-icon>Flagship</div>
         <div class="big-title">E-commerce Stores<br>That <span>Convert on Scroll</span></div>
       </div>
       <div class="bc-big-bottom">
@@ -665,72 +777,81 @@ footer {
             <div class="bc-stat-label">Avg Deploy</div>
           </div>
         </div>
-        <a href="#ecomm" class="card-link">Deep dive ↓</a>
+        <a href="#ecomm" class="card-link">Deep dive <iconify-icon icon="ph:arrow-down-bold" style="width:12px;height:12px;"></iconify-icon></a>
       </div>
     </div>
+  </div>
+
+  <!-- Scrollable service cards on mobile -->
+  <div class="bento-scroll-wrap">
+    <div class="bento-scroll-hint">
+      <iconify-icon icon="ph:arrows-left-right" style="width:16px;height:16px;"></iconify-icon>
+      <span>Swipe to explore</span>
+    </div>
+    <div class="bento-scroll" id="bentoScroll">
 
     <!-- Span 4 -->
     <div class="bento-card bc-span4 sr sr-d1">
-      <div class="card-tag hot">🔥 Trending</div>
+      <div class="card-tag hot"><span style="display:inline-flex;align-items:center;gap:4px;"><iconify-icon icon="ph:fire-fill" style="width:10px;height:10px;color:var(--accent3);"></iconify-icon> Trending</span></div>
       <div class="card-num">02</div>
-      <div class="card-icon">🤖</div>
+      <div class="card-icon"><iconify-icon icon="ph:robot-fill"></iconify-icon></div>
       <div class="card-h3">Tailored AI Models</div>
       <p class="card-p">Custom ML trained on your brand data. Automate customer service, product recs, and upsells — 24/7.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span4 sr sr-d2">
-      <div class="card-tag">New</div>
+      <div class="card-tag"><iconify-icon icon="ph:sparkle-fill" style="width:8px;height:8px;vertical-align:middle;margin-right:2px;color:var(--lime);"></iconify-icon>New</div>
       <div class="card-num">03</div>
-      <div class="card-icon">📱</div>
+      <div class="card-icon"><iconify-icon icon="ph:device-mobile-fill"></iconify-icon></div>
       <div class="card-h3">App Development</div>
       <p class="card-p">Native & cross-platform apps engineered for performance. From zero to App Store in weeks.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span4 sr sr-d3">
       <div class="card-num">04</div>
-      <div class="card-icon">🎯</div>
+      <div class="card-icon"><iconify-icon icon="ph:target-fill"></iconify-icon></div>
       <div class="card-h3">CRM Systems</div>
       <p class="card-p">Bespoke platforms that unify your sales pipeline, automate follow-ups, and close more deals.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span3 sr">
       <div class="card-num">05</div>
-      <div class="card-icon">📞</div>
+      <div class="card-icon"><iconify-icon icon="ph:phone-fill"></iconify-icon></div>
       <div class="card-h3">VoIP Solutions</div>
       <p class="card-p">Enterprise HD calling with CRM integration. Crystal clear, carrier-grade reliability.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span3 sr sr-d1">
       <div class="card-num">06</div>
-      <div class="card-icon">🎧</div>
+      <div class="card-icon"><iconify-icon icon="ph:headset-fill"></iconify-icon></div>
       <div class="card-h3">Contact Center</div>
       <p class="card-p">Elite call center agencies handling tech support, sales, and inquiries with dedicated professionals.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span3 sr sr-d2">
       <div class="card-num">07</div>
-      <div class="card-icon">🌐</div>
+      <div class="card-icon"><iconify-icon icon="ph:globe-fill"></iconify-icon></div>
       <div class="card-h3">Web Development</div>
       <p class="card-p">High-performance digital platforms built on modern architectures. Fast, scalable, conversion-ready.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span3 sr sr-d3">
       <div class="card-num">08</div>
-      <div class="card-icon">🧠</div>
+      <div class="card-icon"><iconify-icon icon="ph:brain-fill"></iconify-icon></div>
       <div class="card-h3">Virtual Assistants</div>
       <p class="card-p">AI-powered virtual workforce that scales your team's capacity without the overhead.</p>
-      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more →</a>
+      <a href="https://www.elitepartnersus.com" target="_blank" class="card-link">Learn more <iconify-icon icon="ph:arrow-right-bold" style="width:12px;height:12px;"></iconify-icon></a>
     </div>
 
     <div class="bento-card bc-span4 sr sr-d4" style="background:rgba(200,245,61,.04);border-color:rgba(200,245,61,.1)">
       <div class="card-num">09</div>
-      <div class="card-icon">🗺️</div>
+      <div class="card-icon"><iconify-icon icon="ph:compass-fill"></iconify-icon></div>
       <div class="card-h3">Strategic Consulting</div>
       <p class="card-p">Expert technology roadmapping to transform operations and maximize ROI. No fluff, just results.</p>
       <div style="margin-top:28px; display:flex; gap:10px;">
@@ -739,7 +860,8 @@ footer {
         <span style="font-size:.68rem;color:var(--muted);padding:5px 12px;border:1px solid var(--border2);border-radius:100px;">Scale</span>
       </div>
     </div>
-  </div>
+    </div><!-- end bento-scroll -->
+  </div><!-- end bento-scroll-wrap -->
 </section>
 
 <!-- ECOMM SPOTLIGHT -->
@@ -751,23 +873,23 @@ footer {
 
   <div class="ecomm-grid sr">
     <div class="ecomm-left">
-      <div class="section-eyebrow" style="margin-bottom:12px;margin-top:0">🛒 E-commerce</div>
+      <div class="section-eyebrow" style="margin-bottom:12px;margin-top:0;display:flex;align-items:center;gap:8px;"><iconify-icon icon="ph:shopping-cart-fill" style="width:14px;height:14px;"></iconify-icon> E-commerce</div>
       <h3>Stores That<br><span class="stroke">Sell While</span><br>You Sleep</h3>
       <p>High-conversion digital storefronts built for the scroll-first generation. We integrate secure payment gateways, advanced inventory management, and AI-powered upsell logic — so your store works as hard as you do.</p>
       <div class="ecomm-features">
-        <div class="ecomm-feat">Shopify, WooCommerce & custom builds</div>
-        <div class="ecomm-feat">Secure payment gateway integration</div>
-        <div class="ecomm-feat">Advanced inventory & order management</div>
-        <div class="ecomm-feat">AI product recommendations & upsells</div>
-        <div class="ecomm-feat">Mobile-first, lightning-fast load times</div>
-        <div class="ecomm-feat">Analytics dashboard & conversion tracking</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>Shopify, WooCommerce & custom builds</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>Secure payment gateway integration</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>Advanced inventory & order management</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>AI product recommendations & upsells</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>Mobile-first, lightning-fast load times</div>
+        <div class="ecomm-feat"><iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);flex-shrink:0;"></iconify-icon>Analytics dashboard & conversion tracking</div>
       </div>
-      <button class="btn-lime" onclick="window.open('https://www.elitepartnersus.com','_blank')">Start Your Store →</button>
+      <button class="btn-lime" onclick="window.open('https://www.elitepartnersus.com','_blank')"><iconify-icon icon="ph:shopping-bag-fill" style="width:14px;height:14px;vertical-align:middle;margin-right:6px;"></iconify-icon>Start Your Store</button>
     </div>
     <div class="ecomm-right">
-      <p style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;font-weight:700;">🔥 What's trending now</p>
+      <p style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px;font-weight:700;"><span style="display:inline-flex;align-items:center;gap:6px;"><iconify-icon icon="ph:fire-fill" style="width:12px;height:12px;color:var(--accent3);"></iconify-icon> What's trending now</span></p>
       <div class="ecomm-card-mini">
-        <div class="ecm-icon ecm-1">🤳</div>
+        <div class="ecm-icon ecm-1"><iconify-icon icon="ph:camera-fill"></iconify-icon></div>
         <div>
           <div class="ecm-title">TikTok / Instagram Shop Integration</div>
           <div class="ecm-desc">Sell directly from Reels & TikTok without leaving the app</div>
@@ -775,7 +897,7 @@ footer {
         <span class="ecm-badge hot">Hot</span>
       </div>
       <div class="ecomm-card-mini">
-        <div class="ecm-icon ecm-2">⚡</div>
+        <div class="ecm-icon ecm-2"><iconify-icon icon="ph:lightning-fill"></iconify-icon></div>
         <div>
           <div class="ecm-title">One-Click Checkout & BNPL</div>
           <div class="ecm-desc">Shop Pay, Afterpay, Klarna — reduce cart abandonment instantly</div>
@@ -783,7 +905,7 @@ footer {
         <span class="ecm-badge hot">Hot</span>
       </div>
       <div class="ecomm-card-mini">
-        <div class="ecm-icon ecm-3">🧠</div>
+        <div class="ecm-icon ecm-3"><iconify-icon icon="ph:cpu-fill"></iconify-icon></div>
         <div>
           <div class="ecm-title">AI Upsell Engine</div>
           <div class="ecm-desc">Personalized product recommendations that learn and convert</div>
@@ -791,7 +913,7 @@ footer {
         <span class="ecm-badge new">New</span>
       </div>
       <div class="ecomm-card-mini">
-        <div class="ecm-icon ecm-4">📦</div>
+        <div class="ecm-icon ecm-4"><iconify-icon icon="ph:package-fill"></iconify-icon></div>
         <div>
           <div class="ecm-title">Dropshipping & POD Ready</div>
           <div class="ecm-desc">Full automation from order to fulfillment. Zero manual work.</div>
@@ -800,7 +922,7 @@ footer {
       </div>
       <div style="margin-top:8px;padding:20px;background:rgba(200,245,61,.04);border:1px solid rgba(200,245,61,.1);border-radius:14px;text-align:center;">
         <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px;">Get a free store audit</div>
-        <button class="btn-lime" style="font-size:.72rem;padding:12px 24px;" onclick="window.open('https://www.elitepartnersus.com','_blank')">Book Free Call →</button>
+        <button class="btn-lime" style="font-size:.72rem;padding:12px 24px;" onclick="window.open('https://www.elitepartnersus.com','_blank')"><iconify-icon icon="ph:calendar-check-fill" style="width:12px;height:12px;vertical-align:middle;margin-right:4px;"></iconify-icon>Book Free Call</button>
       </div>
     </div>
   </div>
@@ -809,6 +931,7 @@ footer {
 <!-- SOCIAL PROOF -->
 <div id="proof" class="sr">
   <div class="proof-left">
+    <iconify-icon icon="ph:trend-up-fill" style="width:32px;height:32px;color:var(--lime);margin-bottom:8px;"></iconify-icon>
     <div class="proof-big">3.2×</div>
     <div class="proof-big-label">Average ROI · 18 months</div>
   </div>
@@ -819,14 +942,17 @@ footer {
   </div>
   <div class="proof-stats">
     <div>
+      <iconify-icon icon="ph:handshake-fill" style="width:18px;height:18px;color:var(--lime);margin-bottom:6px;"></iconify-icon>
       <div class="proof-stat-val">150<span>+</span></div>
       <div class="proof-stat-label">Tech Partners</div>
     </div>
     <div>
+      <iconify-icon icon="ph:check-circle-fill" style="width:18px;height:18px;color:var(--lime);margin-bottom:6px;"></iconify-icon>
       <div class="proof-stat-val">99<span>%</span></div>
       <div class="proof-stat-label">Uptime SLA</div>
     </div>
     <div>
+      <iconify-icon icon="ph:clock-fill" style="width:18px;height:18px;color:var(--lime);margin-bottom:6px;"></iconify-icon>
       <div class="proof-stat-val">15<span>m</span></div>
       <div class="proof-stat-label">Support Response</div>
     </div>
@@ -842,15 +968,15 @@ footer {
   </h2>
   <p class="cta-sub sr">Schedule a free discovery call. No obligations — just a real conversation about what you're building.</p>
   <div class="cta-actions sr">
-    <button class="btn-lime" style="font-size:.88rem;padding:18px 40px;" onclick="window.open('https://www.elitepartnersus.com','_blank')">Book Free Consultation →</button>
-    <button class="btn-outline" style="font-size:.88rem;padding:18px 40px;">See Case Studies</button>
+    <button class="btn-lime" style="font-size:.88rem;padding:18px 40px;" onclick="window.open('https://www.elitepartnersus.com','_blank')"><iconify-icon icon="ph:calendar-check-fill" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"></iconify-icon>Book Free Consultation</button>
+    <button class="btn-outline" style="font-size:.88rem;padding:18px 40px;"><iconify-icon icon="ph:presentation-chart-fill" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"></iconify-icon>See Case Studies</button>
   </div>
   <div class="cta-contact sr">
-    📧 <a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a>
+    <span style="display:inline-flex;align-items:center;"><iconify-icon icon="ph:envelope-fill" style="width:14px;height:14px;color:var(--lime);margin-right:6px;"></iconify-icon><a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a></span>
     &nbsp;·&nbsp;
-    📞 <a href="tel:+12317585988">+1 231 758 5988</a>
+    <span style="display:inline-flex;align-items:center;"><iconify-icon icon="ph:phone-fill" style="width:14px;height:14px;color:var(--lime);margin-right:6px;"></iconify-icon><a href="tel:+12317585988">+1 231 758 5988</a></span>
     &nbsp;·&nbsp;
-    USA · Egypt · Dubai
+    <span style="display:inline-flex;align-items:center;"><iconify-icon icon="ph:map-pin-fill" style="width:14px;height:14px;color:var(--lime);margin-right:6px;"></iconify-icon>USA · Egypt · Dubai</span>
   </div>
 </section>
 
@@ -886,9 +1012,9 @@ footer {
       <div>
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
-          <li><a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a></li>
-          <li><a href="tel:+12317585988">+1 231 758 5988</a></li>
-          <li><a href="https://www.elitepartnersus.com" target="_blank">Book a Consult</a></li>
+          <li><a href="mailto:sales@elitepartnersus.com"><iconify-icon icon="ph:envelope-simple" style="width:12px;height:12px;vertical-align:middle;margin-right:6px;"></iconify-icon>sales@elitepartnersus.com</a></li>
+          <li><a href="tel:+12317585988"><iconify-icon icon="ph:phone" style="width:12px;height:12px;vertical-align:middle;margin-right:6px;"></iconify-icon>+1 231 758 5988</a></li>
+          <li><a href="https://www.elitepartnersus.com" target="_blank"><iconify-icon icon="ph:calendar-blank" style="width:12px;height:12px;vertical-align:middle;margin-right:6px;"></iconify-icon>Book a Consult</a></li>
         </ul>
       </div>
     </div>
@@ -896,9 +1022,9 @@ footer {
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Elite Partners US. Engineered for Performance.</div>
     <div class="footer-badges">
-      <span class="footer-badge">SOC 2 Certified</span>
-      <span class="footer-badge">24/7 Support</span>
-      <span class="footer-badge">99.9% Uptime</span>
+      <span class="footer-badge"><iconify-icon icon="ph:shield-check-fill" style="width:10px;height:10px;color:var(--lime);vertical-align:middle;margin-right:4px;"></iconify-icon>SOC 2 Certified</span>
+      <span class="footer-badge"><iconify-icon icon="ph:headset-fill" style="width:10px;height:10px;color:var(--lime);vertical-align:middle;margin-right:4px;"></iconify-icon>24/7 Support</span>
+      <span class="footer-badge"><iconify-icon icon="ph:timer-fill" style="width:10px;height:10px;color:var(--lime);vertical-align:middle;margin-right:4px;"></iconify-icon>99.9% Uptime</span>
     </div>
   </div>
 </footer>
