@@ -1,10 +1,92 @@
 "use client";
-import React from "react";
-import SidebarItem from "../ui/SideBarItems";
-import { Home, Settings, Crown, Shield, Eye, ShieldCheck } from "lucide-react";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { Home, Settings, Crown, Shield, Eye, ShieldCheck, Briefcase } from "lucide-react";
 import { sidebarItems } from "@/libs/sideBarLinks";
 import { useSession } from "next-auth/react";
 import { isAdmin, isSuperAdmin } from "@/libs/rbac";
+
+export interface SidebarLink {
+  label: string;
+  icon?: string;
+  route?: string;
+  children?: SidebarLink[];
+  lucideIcon?: "home" | "settings" | "shield" | "briefcase";
+  prefetch?: boolean;
+  adminOnly?: boolean;
+  superAdminOnly?: boolean;
+  hiringOnly?: boolean;
+}
+
+// Additional hiring link for the sidebar
+export const hiringLink: SidebarLink = {
+  label: "Hiring",
+  lucideIcon: "briefcase",
+  route: "/hiring",
+  prefetch: true,
+  hiringOnly: true,
+};
+
+// SidebarItem component
+function SidebarItem({ 
+  icon, 
+  label, 
+  route, 
+  children 
+}: { 
+  icon?: React.ReactNode; 
+  label: string; 
+  route?: string; 
+  children?: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isActive = route === pathname;
+
+  if (children && Array.isArray(children) && children.length > 0) {
+    return (
+      <div>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
+            isOpen ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50'
+          }`}
+        >
+          {icon}
+          <span className="flex-1 text-left">{label}</span>
+          <svg
+            className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {isOpen && (
+          <div className="ml-4 mt-1 space-y-1">
+            {children}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => route && router.push(route)}
+      className={`w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
+        isActive
+          ? 'bg-black text-white'
+          : 'text-gray-600 hover:bg-gray-50'
+      }`}
+    >
+      {icon}
+      <span>{label}</span>
+    </button>
+  );
+}
 
 export default function SideBar() {
   const { data: session } = useSession();
@@ -61,13 +143,18 @@ export default function SideBar() {
 
   const filteredItems = filterItems(sidebarItems);
 
+  // Add Hiring link for admin/manager
+  const allItems = userIsAdmin || userRole === 'MANAGER' 
+    ? [...filteredItems, hiringLink] 
+    : filteredItems;
+
   return (
     <div className="w-[256px] h-[100dvh] flex flex-col border-r border-gray-200 bg-white">
       {/* Top Logo & Tenant */}
       <div className="p-2 border-b border-gray-200">
         <div className="flex w-full p-2 items-center gap-2">
           <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">K</span>
+            <span className="text-white font-bold text-lg">E</span>
           </div>
           <div className="flex-1 min-w-0">
             <h1 className="text-sm font-semibold text-gray-900 truncate">
@@ -84,13 +171,14 @@ export default function SideBar() {
       {/* Sidebar links */}
       <div className="w-full flex-1 p-2 overflow-auto scrollbar-hide">
         <div className="space-y-1">
-          {filteredItems.map((item) => {
+          {allItems.map((item, idx) => {
             if (!item) return null;
 
             const lucideIconMap = {
               home: Home,
               settings: Settings,
               shield: Shield,
+              briefcase: Briefcase,
             } as const;
 
             const IconComponent = item.lucideIcon
@@ -105,14 +193,14 @@ export default function SideBar() {
 
             return (
               <SidebarItem
-                key={item.label}
+                key={item.label || idx}
                 icon={iconNode}
                 label={item.label}
                 route={item.route}
               >
-                {item.children?.map((child) => (
+                {item.children?.map((child, cidx) => (
                   <SidebarItem
-                    key={child.label}
+                    key={child.label || cidx}
                     label={child.label}
                     route={child.route}
                   />
