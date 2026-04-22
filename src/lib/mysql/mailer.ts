@@ -1,9 +1,10 @@
 import nodemailer from 'nodemailer';
 
+// Mailjet SMTP configuration
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'mail.elitepartnersus.com',
-  port: parseInt(process.env.SMTP_PORT || '465'),
-  secure: true,
+  host: process.env.SMTP_HOST || 'in-v3.mailjet.com',
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: false, // false for port 587, true for port 465
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -21,9 +22,12 @@ export interface Applicant {
 
 export async function notifyNewApplication(applicant: Applicant) {
   try {
+    // Recipients - get from env or use defaults
+    const recipients = process.env.NOTIFICATION_EMAILS || 'admin@elite.com';
+    
     await transporter.sendMail({
-      from: '"Elite Partners CRM" <admin@elite.com>',
-      to: 'admin@elite.com',
+      from: `"Elite Partners Hiring" <${process.env.SMTP_FROM || 'no-reply@elitepartnersus.com'}>`,
+      to: recipients,
       subject: `New Career Application — ${applicant.full_name}`,
       html: `
         <h2>🎯 New Application Received</h2>
