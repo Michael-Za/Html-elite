@@ -61,24 +61,24 @@ CREATE TABLE IF NOT EXISTS hiring_applications (
 -- DEFAULT USERS
 -- Passwords are stored as plain text for simplicity (can be hashed later)
 -- ============================================================================
--- SUPER ADMIN (for klickbee.com)
+-- SUPER ADMIN
 INSERT INTO crm_users (name, email, password, role) VALUES
-  ('Super Admin', 'superadmin@klickbee.com', 'superadmin2026!', 'ADMIN')
-ON DUPLICATE KEY UPDATE name = VALUES(name);
+  ('Super Admin', 'superadmin@admin.com', 'super@superadmin', 'ADMIN')
+ON DUPLICATE KEY UPDATE name = VALUES(name), password = VALUES(password);
 
 -- ADMIN for Elite Partners
 INSERT INTO crm_users (name, email, password, role) VALUES
-  ('Admin Elite', 'admin@elite.com', 'Elite@admin2026!', 'ADMIN')
-ON DUPLICATE KEY UPDATE name = VALUES(name);
+  ('Elite Admin', 'admin@elite.com', 'adelite@1', 'ADMIN')
+ON DUPLICATE KEY UPDATE name = VALUES(name), password = VALUES(password);
 
 -- MANAGERS for Elite Partners
 INSERT INTO crm_users (name, email, password, role) VALUES
-  ('Gaser Gamal', 'gasergamal93@gmail.com', 'Elite@manager2026!', 'MANAGER')
-ON DUPLICATE KEY UPDATE name = VALUES(name);
+  ('Gaser', 'gasergamal93@gmail.com', 'Gaser@elite1', 'MANAGER')
+ON DUPLICATE KEY UPDATE name = VALUES(name), password = VALUES(password);
 
 INSERT INTO crm_users (name, email, password, role) VALUES
-  ('Shahd Hany', 'Shahdhanyyy456@gmail.com', 'Elite@manager2026!', 'MANAGER')
-ON DUPLICATE KEY UPDATE name = VALUES(name);
+  ('Shahd', 'Shahdhanyyy456@gmail.com', 'shahdhany@elite1', 'MANAGER')
+ON DUPLICATE KEY UPDATE name = VALUES(name), password = VALUES(password);
 
 -- ============================================================================
 -- VERIFICATION QUERIES

@@ -123,12 +123,12 @@ Update the `handleCareerSubmit` function in `careers.html` on elitepartnersus.co
 
 ## Default Login Credentials
 
-| Role | Email | Password |
-|------|-------|----------|
-| SUPER_ADMIN | superadmin@klickbee.com | superadmin2026! |
-| ADMIN | admin@elite.com | Elite@admin2026! |
-| MANAGER | gasergamal93@gmail.com | Elite@manager2026! |
-| MANAGER | Shahdhanyyy456@gmail.com | Elite@manager2026! |
+| Name | Email | Role | Password |
+|------|-------|------|----------|
+| Super Admin | superadmin@admin.com | ADMIN | super@superadmin |
+| Elite Admin | admin@elite.com | ADMIN | adelite@1 |
+| Gaser | gasergamal93@gmail.com | MANAGER | Gaser@elite1 |
+| Shahd | Shahdhanyyy456@gmail.com | MANAGER | shahdhany@elite1 |
 
 ---
 
