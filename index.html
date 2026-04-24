@@ -81,17 +81,16 @@ nav {
 }
 .nav-btn:hover { transform:scale(1.04); background:var(--accent-light); }
 
-/* Desktop: Always visible */
+/* Desktop: Full nav visible */
 @media (min-width: 769px) {
   .nav-btn { display: block; }
-  nav.scrolled .nav-pills { opacity: 1; transform: scale(1); pointer-events: auto; }
+  .nav-pills { display: flex; }
 }
 
-/* Mobile: Scroll swap logic */
+/* Mobile: Only Book Call button, hide nav pills */
 @media (max-width: 768px) {
-  .nav-btn { display: none; opacity: 0; transform: translateX(10px); transition: all 0.3s ease; }
-  nav.scrolled .nav-pills { opacity: 0; transform: scale(0.9); pointer-events: none; height: 0; padding: 0; border: none; background: transparent; overflow: hidden; }
-  nav.scrolled .nav-btn { display: block; opacity: 1; transform: translateX(0); }
+  .nav-pills { display: none !important; }
+  .nav-btn { display: block; opacity: 1; transform: none; }
 }
 
 /* HERO & SECTIONS */
