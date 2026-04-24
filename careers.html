@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers — Elite Partners</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg-primary: #050505;
+  --bg-secondary: #0f0f12;
+  --bg-card: #141417;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a8;
+  --text-muted: #6b6b75;
+  --accent: #3b82f6;
+  --accent-light: #60a5fa;
+  --accent-glow: rgba(59,130,246,0.35);
+  --border: rgba(255,255,255,0.1);
+  --border-accent: rgba(59,130,246,0.25);
+  --glass: rgba(20,20,24,0.75);
+  --modal-bg: rgba(8,8,10,0.92);
+  --modal-border: rgba(59,130,246,0.35);
+  --input-bg: rgba(255,255,255,0.06);
+  --input-border: rgba(255,255,255,0.12);
+}
+html { scroll-behavior:smooth; }
+body { background: var(--bg-primary); color: var(--text-primary); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; position: relative; min-height: 100vh; }
+
+/* --- BACKGROUND LAYERS --- */
+.bg-orb, .water-overlay, #bg-canvas, #wave-canvas, body::before { pointer-events: none !important; user-select: none; }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px; z-index: 0;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+.bg-orb { position: fixed; border-radius: 50%; filter: blur(80px); z-index: 0; opacity: 0.15; animation: floatOrb 20s ease-in-out infinite; }
+.orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(59,130,246,0.4) 0%, transparent 70%); top: -10%; left: -10%; }
+.orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(96,165,250,0.3) 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -5s; animation-duration: 25s; }
+.orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(147,197,253,0.25) 0%, transparent 70%); top: 40%; left: 60%; animation-delay: -10s; animation-duration: 22s; }
+@keyframes floatOrb { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -40px) scale(1.1); } 66% { transform: translate(-20px, 30px) scale(0.9); } }
+#bg-canvas, #wave-canvas { position:fixed; inset:0; }
+#bg-canvas { z-index:1; }
+#wave-canvas { z-index: 2; opacity: 0.6; mix-blend-mode: screen; }
+.water-overlay { position:fixed; inset:0; z-index:1; overflow:hidden; }
+.water-overlay::before, .water-overlay::after { content:''; position:absolute; border-radius:50%; background:transparent; animation: ripple 9s ease-in-out infinite; }
+.water-overlay::before { width:900px;height:900px;top:-200px;left:-300px;border:1px solid rgba(59,130,246,.08);box-shadow:0 0 120px 1px rgba(59,130,246,.04); }
+.water-overlay::after { width:700px;height:700px;bottom:-200px;right:-150px;border:1px solid rgba(96,165,250,.06);animation-name:ripple2;animation-duration:12s;animation-delay:-4s; }
+@keyframes ripple { 0%,100%{transform:scale(1) translate(0,0);} 33%{transform:scale(1.04) translate(12px,-8px);} 66%{transform:scale(.97) translate(-8px,10px);} }
+@keyframes ripple2 { 0%,100%{transform:scale(1) translate(0,0);} 40%{transform:scale(1.06) translate(-14px,6px);} 70%{transform:scale(.95) translate(10px,-12px);} }
+
+/* --- NAVIGATION --- */
+nav {
+  position:fixed; top:16px; left:50%; transform:translateX(-50%);
+  width:calc(100% - 32px); max-width:1200px; z-index:200;
+  padding:12px 24px; display:flex; align-items:center; justify-content:space-between;
+  backdrop-filter:blur(20px) saturate(1.4); background:var(--glass);
+  border:1px solid var(--border); border-radius:16px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  animation:navIn 1s .1s both;
+}
+@keyframes navIn { from{opacity:0;transform:translateX(-50%) translateY(-20px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+.logo { font-family:'Bebas Neue',sans-serif; font-size:1.35rem; letter-spacing:.18em; color:var(--text-primary); text-decoration:none; font-weight:600; white-space: nowrap; }
+.nav-back { display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-light); text-decoration:none; padding:10px 20px; background:rgba(59,130,246,.12); border:1px solid var(--border-accent); border-radius:100px; transition:all .3s; }
+.nav-back:hover { background:rgba(59,130,246,.2); color:#fff; border-color:rgba(96,165,250,.5); }
+
+/* --- PAGE CONTENT --- */
+.page-content { position:relative; z-index:10; max-width:720px; margin:0 auto; padding:140px 24px 80px; }
+.page-header { text-align:center; margin-bottom:48px; }
+.page-icon { width:72px; height:72px; border-radius:18px; display:flex; align-items:center; justify-content:center; margin:0 auto 24px; background:rgba(59,130,246,.15); border:1px solid var(--border-accent); }
+.page-icon i { font-size:36px; color:var(--accent-light); }
+.page-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.8rem,6vw,4.5rem); line-height:.92; color:var(--text-primary); margin-bottom:12px; }
+.page-title .blue { background:linear-gradient(90deg, var(--accent-light), #fff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.page-subtitle { font-size:.88rem; color:var(--accent-light); font-weight:600; letter-spacing:.05em; text-transform:uppercase; margin-bottom:16px; }
+.page-desc { font-size:.94rem; color:var(--text-secondary); line-height:1.8; font-weight:300; max-width:480px; margin:0 auto; }
+
+/* --- FORM --- */
+.career-form { background:var(--modal-bg); border:1px solid var(--modal-border); border-radius:24px; padding:40px; box-shadow:0 20px 60px rgba(0,0,0,0.6); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+.form-group label { font-size:.74rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--text-secondary); }
+.form-group input, .form-group select, .form-group textarea { background:var(--input-bg); border:1px solid var(--input-border); border-radius:10px; padding:12px 16px; color:#fff; font-family:inherit; font-size:.88rem; transition:border .2s, background .2s; outline:none; width:100%; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--accent); background:rgba(59,130,246,.08); }
+.form-group input::placeholder, .form-group textarea::placeholder { color:var(--text-muted); }
+.form-group select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2360a5fa' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; }
+.form-group textarea { resize:vertical; min-height:80px; }
+.form-checkboxes { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-top:4px; }
+.form-check { display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--input-bg); border:1px solid var(--input-border); border-radius:8px; cursor:pointer; transition:all .2s; user-select:none; }
+.form-check:hover { border-color:var(--border-accent); background:rgba(59,130,246,.08); }
+.form-check input { display:none; }
+.form-check .check-box { width:16px; height:16px; border:2px solid var(--input-border); border-radius:4px; display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
+.form-check input:checked ~ .check-box { background:var(--accent); border-color:var(--accent); }
+.form-check input:checked ~ .check-box::after { content:'✓'; color:#fff; font-size:10px; font-weight:bold; }
+.form-check .check-label { font-size:.82rem; color:var(--text-secondary); }
+.form-check input:checked ~ .check-label { color:#fff; }
+.form-file { position:relative; }
+.form-file input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+.form-file-label { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px 16px; background:var(--input-bg); border:1.5px dashed var(--input-border); border-radius:10px; color:var(--text-secondary); font-size:.85rem; cursor:pointer; transition:all .2s; }
+.form-file:hover .form-file-label { border-color:var(--accent); color:#fff; }
+
+.btn-blue { font-size:.8rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:16px 32px; background:var(--accent); color:#fff; border:none; border-radius:100px; box-shadow:0 0 36px var(--accent-glow); transition:all .35s; cursor:pointer; width:100%; margin-top:8px; }
+.btn-blue:hover { transform:scale(1.02); background:var(--accent-light); box-shadow:0 0 56px var(--accent-glow); }
+.btn-blue:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+.submit-success { background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.3); border-radius:12px; padding:24px; text-align:center; margin-top:16px; }
+.submit-success i { font-size:2.4rem; color:#22c55e; display:block; margin-bottom:12px; }
+.submit-success h4 { font-size:1.15rem; color:#fff; margin-bottom:6px; }
+.submit-success p { font-size:.88rem; color:var(--text-secondary); }
+.submit-error { background:rgba(239,68,68,.15); border:1px solid rgba(239,68,68,.3); border-radius:12px; padding:16px; text-align:center; margin-top:16px; }
+.submit-error p { font-size:.85rem; color:#ef4444; }
+
+#otherFieldGroup { display: none; }
+
+/* --- FOOTER --- */
+.page-footer { position:relative; z-index:10; text-align:center; padding:32px 24px; border-top:1px solid var(--border); margin-top:40px; }
+.page-footer a { font-size:.82rem; color:var(--accent-light); text-decoration:none; transition:color .2s; }
+.page-footer a:hover { color:#fff; }
+.page-footer .footer-copy { font-size:.72rem; color:var(--text-muted); margin-top:8px; }
+
+@media(max-width: 768px) {
+  nav { padding:10px 16px; width:calc(100% - 20px); top:10px; }
+  .page-content { padding:120px 16px 60px; }
+  .career-form { padding:24px 16px; }
+  .form-row { grid-template-columns:1fr; }
+  .form-checkboxes { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:0.01ms!important; animation-iteration-count:1!important; transition-duration:0.01ms!important; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
+<div class="water-overlay"></div>
+<canvas id="bg-canvas"></canvas>
+<canvas id="wave-canvas"></canvas>
+
+<nav>
+  <a href="index.html" class="logo">Elite Partners</a>
+  <a href="index.html" class="nav-back"><i class="ri-arrow-left-line"></i> Back to Home</a>
+</nav>
+
+<div class="page-content">
+  <div class="page-header">
+    <div class="page-icon"><i class="ri-briefcase-4-line"></i></div>
+    <h1 class="page-title">Join the <span class="blue">Elite Team</span></h1>
+    <p class="page-subtitle">We're Always Hiring Talent</p>
+    <p class="page-desc">Ready to build what's next? Fill out this quick application. We review every submission and respond ASAP.</p>
+  </div>
+
+  <form class="career-form" id="careerForm" onsubmit="handleCareerSubmit(event)">
+    <div class="form-row">
+      <div class="form-group"><label>Full Name *</label><input type="text" name="full_name" required placeholder="John Doe"></div>
+      <div class="form-group"><label>Age</label><input type="number" name="age" placeholder="25"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>City</label><input type="text" name="city" placeholder="e.g. Cairo, Dubai, NYC"></div>
+      <div class="form-group"><label>Email Address *</label><input type="email" name="email" required placeholder="john@company.com"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>WhatsApp Number *</label><input type="tel" name="whatsapp" required placeholder="+1 234 567 8900"></div>
+      <div class="form-group"><label>LinkedIn Profile</label><input type="url" name="linkedin" placeholder="linkedin.com/in/johndoe"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Education</label><input type="text" name="education" placeholder="e.g. BSc Computer Science"></div>
+      <div class="form-group"><label>Current Status</label>
+        <select name="current_status">
+          <option value="">Select status...</option>
+          <option>Student</option>
+          <option>Employed (Looking for change)</option>
+          <option>Freelancer</option>
+          <option>Unemployed / Immediately Available</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Field / Industry</label>
+        <select name="field" id="careerFieldSelect" onchange="toggleOtherField()">
+          <option value="">Select your field...</option>
+          <option>Software Development</option>
+          <option>AI & Machine Learning</option>
+          <option>DevOps & Cloud</option>
+          <option>UI/UX Design</option>
+          <option>Marketing & Growth</option>
+          <option>Sales & Business Dev</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Expertise Level</label><select name="expertise_level"><option value="">Select level...</option><option>Junior (1-2 yrs)</option><option>Mid-Level (3-4 yrs)</option><option>Senior (5+ yrs)</option><option>Lead / Manager</option><option>Expert / Consultant</option></select></div>
+    </div>
+    <div class="form-group" id="otherFieldGroup">
+      <label>Please specify your field</label>
+      <input type="text" name="other_field" placeholder="e.g. Blockchain, Data Science...">
+    </div>
+    <div class="form-group" style="grid-column: span 2;">
+      <label>Work Experience</label>
+      <textarea name="work_experience" rows="3" placeholder="List previous roles, agencies worked with, and key achievements..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>English Level</label>
+        <select name="english_level">
+          <option value="">Select level...</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+          <option>Fluent</option>
+          <option>Native</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Position Interest</label>
+        <select name="position">
+          <option value="">Select position...</option>
+          <option>Software Developer</option>
+          <option>AI Engineer</option>
+          <option>DevOps Engineer</option>
+          <option>UI/UX Designer</option>
+          <option>Digital Marketer</option>
+          <option>Sales Representative</option>
+          <option>Virtual Assistant</option>
+          <option>Project Manager</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Other Skills (Check all that apply)</label>
+      <div class="form-checkboxes">
+        <label class="form-check"><input type="checkbox" name="skills" value="Digital Marketing"><span class="check-box"></span><span class="check-label">Digital Marketing</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Graphic Design"><span class="check-box"></span><span class="check-label">Graphic Design</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Video Editing"><span class="check-box"></span><span class="check-label">Video Editing</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Copywriting"><span class="check-box"></span><span class="check-label">Copywriting</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="IT Support"><span class="check-box"></span><span class="check-label">IT Support</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Data Entry"><span class="check-box"></span><span class="check-label">Data Entry</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Project Management"><span class="check-box"></span><span class="check-label">Project Mgmt</span></label>
+        <label class="form-check"><input type="checkbox" name="skills" value="Photography"><span class="check-box"></span><span class="check-label">Photography</span></label>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Voice Note Intro</label>
+        <div class="form-file">
+          <input type="file" name="voice_note" accept="audio/*">
+          <div class="form-file-label"><i class="ri-mic-line"></i> Upload Audio (.mp3, .wav)</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Video Intro URL</label>
+        <input type="url" name="video_url" placeholder="Paste YouTube, Loom, or Drive link">
+      </div>
+    </div>
+    <div class="form-group"><label>Why Elite? / Cover Message</label><textarea name="cover_message" rows="3" placeholder="Briefly tell us what you bring to the table..."></textarea></div>
+    <button type="submit" class="btn-blue" id="careerSubmitBtn">Submit Application</button>
+    <div id="careerResult"></div>
+  </form>
+</div>
+
+<div class="page-footer">
+  <a href="index.html"><i class="ri-arrow-left-line"></i> Back to Elite Partners</a>
+  <div class="footer-copy">&copy; 2026 Elite Partners US. Engineered for Performance.</div>
+</div>
+
+<script>
+// ── THREE.JS & WAVES ────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('bg-canvas');
+  if(!canvas) return;
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, .1, 1000);
+  camera.position.z = 3;
+  const geo = new THREE.IcosahedronGeometry(1.2, 3);
+  const mat = new THREE.MeshBasicMaterial({color:0x3b82f6, wireframe:true, transparent:true, opacity:.08});
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+  (function animate(){requestAnimationFrame(animate);mesh.rotation.x+=.0008;mesh.rotation.y+=.0012;renderer.render(scene,camera)})();
+  window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+
+  const wCanvas = document.getElementById('wave-canvas');
+  if(wCanvas){
+    const ctx = wCanvas.getContext('2d');
+    let w=innerWidth, h=innerHeight;
+    const resizeW=()=>{w=innerWidth;h=innerHeight;wCanvas.width=w;wCanvas.height=h};
+    resizeW(); window.addEventListener('resize',resizeW);
+    let t=0;
+    (function drawWaves(){
+      requestAnimationFrame(drawWaves);
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<3;i++){
+        ctx.beginPath();
+        ctx.strokeStyle=`rgba(59,130,246,${.04+i*.015})`;
+        ctx.lineWidth=1;
+        for(let x=0;x<=w;x+=4){
+          const y=h*.5+Math.sin(x*.003+t+i*.8)*50+Math.sin(x*.007+t*.6+i*1.2)*30;
+          x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+      }
+      t+=.015;
+    })();
+  }
+});
+
+// ── CAREER FORM LOGIC ───────────────────────────────────────────
+function toggleOtherField() {
+  const select = document.getElementById('careerFieldSelect');
+  const otherGroup = document.getElementById('otherFieldGroup');
+  otherGroup.style.display = select.value === 'Other' ? 'flex' : 'none';
+}
+
+// CRM API endpoint
+const CRM_API_URL = 'https://crm.elitepartnersus.com/api/careers';
+
+async function handleCareerSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('careerForm');
+  const submitBtn = document.getElementById('careerSubmitBtn');
+  const resultDiv = document.getElementById('careerResult');
+  const formData = new FormData(form);
+
+  // If "Other" field is selected, override the field value
+  const fieldSelect = document.getElementById('careerFieldSelect');
+  if (fieldSelect.value === 'Other' && formData.get('other_field')) {
+    formData.set('field', formData.get('other_field'));
+  }
+  formData.delete('other_field');
+
+  // Add spaceId required by CRM API
+  formData.append('spaceId', 'elite');
+
+  // Disable submit button
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  resultDiv.innerHTML = '';
+
+  try {
+    const response = await fetch(CRM_API_URL, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      resultDiv.innerHTML = `
+        <div class="submit-success">
+          <i class="ri-check-line"></i>
+          <h4>Application Received!</h4>
+          <p>Our talent team will review your details and reach out via WhatsApp/Email ASAP.</p>
+        </div>`;
+      form.reset();
+      document.getElementById('otherFieldGroup').style.display = 'none';
+    } else {
+      const errorMsg = data.error || 'Something went wrong. Please try again.';
+      resultDiv.innerHTML = `<div class="submit-error"><p>${errorMsg}</p></div>`;
+    }
+  } catch (err) {
+    console.error('Career submission error:', err);
+    resultDiv.innerHTML = `
+      <div class="submit-error">
+        <p>Network error. Please check your connection and try again.</p>
+      </div>`;
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit Application';
+  }
+}
+</script>
+</body>
+</html>

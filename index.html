@@ -293,18 +293,6 @@ footer { position:relative; z-index:10; padding:56px 48px 36px; border-top:1px s
 .form-file-label { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px 16px; background:var(--input-bg); border:1.5px dashed var(--input-border); border-radius:10px; color:var(--text-secondary); font-size:.85rem; cursor:pointer; transition:all .2s; }
 .form-file:hover .form-file-label { border-color:var(--accent); color:#fff; }
 
-/* Career form submit states */
-.form-submit:disabled { opacity:0.6; cursor:not-allowed; }
-.submit-success { background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.3); border-radius:12px; padding:20px; text-align:center; }
-.submit-success i { font-size:2rem; color:#22c55e; display:block; margin-bottom:12px; }
-.submit-success h4 { font-size:1.1rem; color:#fff; margin-bottom:6px; }
-.submit-success p { font-size:.85rem; color:var(--text-secondary); }
-.submit-error { background:rgba(239,68,68,.15); border:1px solid rgba(239,68,68,.3); border-radius:12px; padding:16px; text-align:center; margin-top:8px; }
-.submit-error p { font-size:.85rem; color:#ef4444; }
-
-#otherFieldGroup { display: none; animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
 @media(max-width: 1024px) {
   .service-card { flex:0 0 300px; }
   .card-big { flex:0 0 400px; }
@@ -489,7 +477,7 @@ footer { position:relative; z-index:10; padding:56px 48px 36px; border-top:1px s
 
 <section id="cta" data-section-id="cta"><div class="cta-water"></div><h2 class="cta-h2 sr"><span class="dim">Your Brand.</span><br><span class="blue">Elite</span> Stack.</h2><p class="cta-sub sr">Schedule a free discovery call. No obligations — just a real conversation about what you're building.</p><div class="cta-actions sr"><button class="btn-blue" style="font-size:.87rem;padding:18px 40px;" onclick="openBooking()">Book Free Consultation</button><button class="btn-glass" style="font-size:.87rem;padding:18px 40px;" onclick="document.getElementById('proof').scrollIntoView({behavior:'smooth'})">See Case Studies</button></div><div class="cta-contact sr"><i class="ri-mail-line" style="font-size:14px;margin-right:4px;"></i><a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a> · <a href="tel:+12317585988">+1 231 758 5988</a> · USA · UAE · EGY</div></section>
 
-<footer><div class="footer-top"><div><a href="#" class="logo">Elite Partners</a><p class="footer-tagline">Strategic technology partnerships driving enterprise transformation. Trusted globally — USA · UAE · EGY.</p></div><div class="footer-cols"><div><div class="footer-col-title">Solutions</div><ul class="footer-links"><li><a href="https://www.elitepartnersus.com" target="_blank">VoIP Solutions</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Contact Center</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">E-commerce</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">App Development</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">CRM Systems</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">AI Models</a></li></ul></div><div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="https://www.elitepartnersus.com" target="_blank">About Us</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Consulting</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Virtual Assistants</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Web Dev</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Privacy</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Careers</a></li></ul></div><div><div class="footer-col-title">Join Us</div><button class="hire-btn" onclick="openCareers()"><i class="ri-rocket-line"></i> We're Hiring</button><ul class="footer-links" style="margin-top:12px;"><li><a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a></li><li><a href="tel:+12317585988">+1 231 758 5988</a></li><li style="color:var(--text-muted);font-size:.78rem;margin-top:4px;">USA · UAE · EGY</li></ul></div></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 Elite Partners US. Engineered for Performance.</div><div class="footer-badges"><span class="footer-badge">SOC 2 Certified</span><span class="footer-badge">24/7 Support</span><span class="footer-badge">99.9% Uptime</span></div></div></footer>
+<footer><div class="footer-top"><div><a href="#" class="logo">Elite Partners</a><p class="footer-tagline">Strategic technology partnerships driving enterprise transformation. Trusted globally — USA · UAE · EGY.</p></div><div class="footer-cols"><div><div class="footer-col-title">Solutions</div><ul class="footer-links"><li><a href="https://www.elitepartnersus.com" target="_blank">VoIP Solutions</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Contact Center</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">E-commerce</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">App Development</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">CRM Systems</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">AI Models</a></li></ul></div><div><div class="footer-col-title">Company</div><ul class="footer-links"><li><a href="https://www.elitepartnersus.com" target="_blank">About Us</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Consulting</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Virtual Assistants</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Web Dev</a></li><li><a href="https://www.elitepartnersus.com" target="_blank">Privacy</a></li><li><a href="careers.html">Careers</a></li></ul></div><div><div class="footer-col-title">Join Us</div><a href="careers.html" class="hire-btn"><i class="ri-rocket-line"></i> We're Hiring</a><ul class="footer-links" style="margin-top:12px;"><li><a href="mailto:sales@elitepartnersus.com">sales@elitepartnersus.com</a></li><li><a href="tel:+12317585988">+1 231 758 5988</a></li><li style="color:var(--text-muted);font-size:.78rem;margin-top:4px;">USA · UAE · EGY</li></ul></div></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 Elite Partners US. Engineered for Performance.</div><div class="footer-badges"><span class="footer-badge">SOC 2 Certified</span><span class="footer-badge">24/7 Support</span><span class="footer-badge">99.9% Uptime</span></div></div></footer>
 
 <!-- SERVICE MODALS -->
 <div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)"><div class="modal-content" onclick="event.stopPropagation()"><button class="modal-close" onclick="closeModal()"><i class="ri-close-line"></i></button><div id="modalBody"></div></div></div>
@@ -534,111 +522,6 @@ footer { position:relative; z-index:10; padding:56px 48px 36px; border-top:1px s
       </div></div>
       <div class="form-group"><label for="b-notes">Additional Details / Goals</label><textarea id="b-notes" name="notes" rows="3" placeholder="Tell us about your project, goals, timeline, or any specific requirements..."></textarea></div>
       <button type="submit" class="btn-blue form-submit">Submit & Open Email</button>
-    </form>
-  </div>
-</div>
-
-<!-- CAREERS MODAL — Submits to CRM API -->
-<div class="modal-backdrop" id="careerModal" onclick="closeCareer(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeCareer()"><i class="ri-close-line"></i></button>
-    <div class="modal-icon"><i class="ri-briefcase-4-line"></i></div>
-    <h3 class="modal-title">Join the Elite Team</h3>
-    <p class="modal-subtitle">We're Always Hiring Talent</p>
-    <p class="modal-desc">Ready to build what's next? Fill out this quick application. We review every submission and respond ASAP.</p>
-    <form class="booking-form" id="careerForm" onsubmit="handleCareerSubmit(event)">
-      <div class="form-row">
-        <div class="form-group"><label>Full Name *</label><input type="text" name="full_name" required placeholder="John Doe"></div>
-        <div class="form-group"><label>Age</label><input type="number" name="age" placeholder="25"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>City</label><input type="text" name="city" placeholder="e.g. Cairo, Dubai, NYC"></div>
-        <div class="form-group"><label>Email Address *</label><input type="email" name="email" required placeholder="john@company.com"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>WhatsApp Number *</label><input type="tel" name="whatsapp" required placeholder="+1 234 567 8900"></div>
-        <div class="form-group"><label>LinkedIn Profile</label><input type="url" name="linkedin" placeholder="linkedin.com/in/johndoe"></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>Education</label><input type="text" name="education" placeholder="e.g. BSc Computer Science"></div>
-        <div class="form-group"><label>Current Status</label>
-          <select name="current_status">
-            <option value="">Select status...</option>
-            <option>Student</option>
-            <option>Employed (Looking for change)</option>
-            <option>Freelancer</option>
-            <option>Unemployed / Immediately Available</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Field / Industry</label>
-          <select name="field" id="careerFieldSelect" onchange="toggleOtherField()">
-            <option value="">Select your field...</option>
-            <option>Software Development</option>
-            <option>AI & Machine Learning</option>
-            <option>DevOps & Cloud</option>
-            <option>UI/UX Design</option>
-            <option>Marketing & Growth</option>
-            <option>Sales & Business Dev</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Expertise Level</label><select name="expertise_level"><option value="">Select level...</option><option>Junior (1-2 yrs)</option><option>Mid-Level (3-4 yrs)</option><option>Senior (5+ yrs)</option><option>Lead / Manager</option><option>Expert / Consultant</option></select></div>
-      </div>
-      <div class="form-group" id="otherFieldGroup">
-        <label>Please specify your field</label>
-        <input type="text" name="other_field" placeholder="e.g. Blockchain, Data Science...">
-      </div>
-      <div class="form-row">
-         <div class="form-group" style="grid-column: span 2;">
-           <label>Work Experience</label>
-           <textarea name="work_experience" rows="3" placeholder="List previous roles, agencies worked with, and key achievements..."></textarea>
-         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>English Level</label>
-          <select name="english_level">
-            <option value="">Select level...</option>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
-            <option>Fluent</option>
-            <option>Native</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Other Skills (Check all that apply)</label>
-        <div class="form-checkboxes">
-          <label class="form-check"><input type="checkbox" name="skills" value="Digital Marketing"><span class="check-box"></span><span class="check-label">Digital Marketing</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Graphic Design"><span class="check-box"></span><span class="check-label">Graphic Design</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Video Editing"><span class="check-box"></span><span class="check-label">Video Editing</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Copywriting"><span class="check-box"></span><span class="check-label">Copywriting</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="IT Support"><span class="check-box"></span><span class="check-label">IT Support</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Data Entry"><span class="check-box"></span><span class="check-label">Data Entry</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Project Management"><span class="check-box"></span><span class="check-label">Project Mgmt</span></label>
-          <label class="form-check"><input type="checkbox" name="skills" value="Photography"><span class="check-box"></span><span class="check-label">Photography</span></label>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Voice Note Intro</label>
-          <div class="form-file">
-            <input type="file" name="voice_note" accept="audio/*">
-            <div class="form-file-label"><i class="ri-mic-line"></i> Upload Audio (.mp3, .wav)</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Video Intro URL</label>
-          <input type="url" name="video_url" placeholder="Paste YouTube, Loom, or Drive link">
-        </div>
-      </div>
-      <div class="form-group"><label for="careerNotes">Why Elite? / Cover Message</label><textarea id="careerNotes" name="cover_message" rows="3" placeholder="Briefly tell us what you bring to the table..."></textarea></div>
-      <button type="submit" class="btn-blue form-submit" id="careerSubmitBtn">Submit Application</button>
-      <div id="careerResult"></div>
     </form>
   </div>
 </div>
@@ -715,17 +598,6 @@ window.addEventListener('scroll', () => {
   }
 }, {passive:true});
 
-// ── CAREER FORM LOGIC ("OTHER" FIELD) ───────────────────────────
-function toggleOtherField() {
-  const select = document.getElementById('careerFieldSelect');
-  const otherGroup = document.getElementById('otherFieldGroup');
-  if (select.value === 'Other') {
-    otherGroup.style.display = 'flex';
-  } else {
-    otherGroup.style.display = 'none';
-  }
-}
-
 // ── CAROUSEL & UTILS ────────────────────────────────────────────
 const carousel = document.getElementById('carousel');
 const arrowL = document.querySelector('.carousel-arrow.left');
@@ -762,68 +634,6 @@ document.addEventListener('click', e => {
   const learnMore = e.target.closest('.learn-more');
   if(learnMore) { e.preventDefault(); const target = learnMore.dataset.target; if(target) openModal(target); }
 });
-
-// ── CAREERS MODAL — POST to CRM API ────────────────────────────
-const careerModal = document.getElementById('careerModal');
-function openCareers() { careerModal.classList.add('active'); document.body.style.overflow='hidden'; }
-function closeCareer(e) { if(e && e.target!==careerModal && !e.target.closest('.modal-close')) return; careerModal.classList.remove('active'); document.body.style.overflow=''; }
-
-// CRM API endpoint — update this to your CRM deployment URL
-const CRM_API_URL = 'https://crm.elitepartnersus.com/api/careers';
-
-async function handleCareerSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('careerForm');
-  const submitBtn = document.getElementById('careerSubmitBtn');
-  const resultDiv = document.getElementById('careerResult');
-  const formData = new FormData(form);
-  
-  // If "Other" field is selected, override the field value
-  const fieldSelect = document.getElementById('careerFieldSelect');
-  if (fieldSelect.value === 'Other' && formData.get('other_field')) {
-    formData.set('field', formData.get('other_field'));
-  }
-  formData.delete('other_field'); // Don't send this separately
-  
-  // Disable submit button
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting...';
-  resultDiv.innerHTML = '';
-  
-  try {
-    const response = await fetch(CRM_API_URL, {
-      method: 'POST',
-      body: formData,
-    });
-    
-    const data = await response.json();
-    
-    if (response.ok && data.success) {
-      resultDiv.innerHTML = `
-        <div class="submit-success">
-          <i class="ri-check-line"></i>
-          <h4>Application Received!</h4>
-          <p>Our talent team will review your details and reach out via WhatsApp/Email ASAP.</p>
-        </div>`;
-      form.reset();
-      document.getElementById('otherFieldGroup').style.display = 'none';
-      // Auto-close after 4 seconds
-      setTimeout(() => closeCareer(), 4000);
-    } else {
-      const errorMsg = data.error || 'Something went wrong. Please try again.';
-      resultDiv.innerHTML = `<div class="submit-error"><p>${errorMsg}</p></div>`;
-    }
-  } catch (err) {
-    console.error('Career submission error:', err);
-    resultDiv.innerHTML = `
-      <div class="submit-error">
-        <p>Network error. Please check your connection and try again.</p>
-      </div>`;
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Submit Application';
-  }
-}
 
 // ── BOOKING MODAL ───────────────────────────────────────────────
 const bookingModal = document.getElementById('bookingModal');
